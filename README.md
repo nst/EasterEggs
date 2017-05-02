@@ -40,7 +40,7 @@ For the record, here is a rough chronology of what we did.
 | 2017-04-13 | EuroChicken lottery<BR> I added this feature to meet the following needs: 1) I wanted the players to be able to play during the 4 days of the Easter week end, when most people were not present at work and 2) I wanted to flatten the leaderboard and help the players with just a couple of eggs. After a fixed delay (2 hours the 1st day, 8 hours after) EuroChicken gives you an egg picked randomly among all the eggs that were already caught. The lottery helped in balahadn't caught yet. |
 | 2017-04-19 | List combo winners (sets of eggs that go together, eg. the Simpson family members, etc) |
 | 2017-04-19 | Totem roulette (not published)<BR> The idea here was to provide a giant egg on top of a totem. During the closing ceremony, people would have the choice to scan it and randomly win or lose some eggs. We chose not to do it because we did not find a fair rule, and also because destructive actions should not be possible when playing on behalf of other players. |
-| 2017-04-10 | Game ends<BR>Closing ceremony at the pub. |
+| 2017-04-20 | Game ends<BR>Closing ceremony at the pub. |
 
 <A HREF="img/ceremony.jpg"><IMG SRC="img/ceremony.jpg" HEIGHT=180 /></A>
 
