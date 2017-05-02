@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} SQPub Easter Eggs {% endblock %}
+
+{% block content %}
+
+<h1>All {{ players.count }} Players</h1>
+<hr />
+
+<table class="table table-responsive table-hover">
+  <tr>
+    <th>Name</th>
+    <th>Eggs</th>
+    <th>Points</A></th>
+  </tr>
+  {% for p in players %}
+  <tr>
+    <td><a href="/player/{{ p.id }}">{{ p.name }}</a></td>
+    <td>{{ p.number_of_eggs }}</td>
+    <td>{{ p.score }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

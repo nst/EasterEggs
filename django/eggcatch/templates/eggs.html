@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %} SQPub Easter Eggs {% endblock %}
+
+{% block content %}
+
+<H1>All {{ eggs.count }} Eggs</H1>
+
+<TABLE class="table table-responsive table-hover">
+  <TR>
+    <TH>Image</TH>
+    <TH>Name</TH>
+    <TH>Catches</A></TH>
+    <TH>Points</A></TH>
+    <TH>Description</A></TH>
+  </TR>
+  {% for e in eggs %}
+  <TR>
+    <TD>
+      {% if e.image %}
+        <A HREF="/egg/{{ e.id }}"><img src="{{ e.image.url }}" height=64 border=1 /></A>
+      {% endif %}
+    </TD>
+    <TD><A HREF="/egg/{{ e.id }}">{{ e.name }}</A></TD>
+    <TD>{{ e.number_of_catches }}
+    <TD>{{ e.points }}</TD>
+    <TD>{{ e.description }}
+  </TR>
+  {% endfor %}
+</TABLE>
+</P>
+
+{% endblock %}

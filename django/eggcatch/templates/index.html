@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %} SQPub Easter Eggs {% endblock %}
+
+{% block content %}
+
+<h1>SQ Pub Easter Eggs</h1>
+<hr />
+
+{% if player %}
+
+<h2>🥚 Latest catches</h2>
+
+<table class="table table-responsive table-hover">
+  <tr>
+    <th>Date</th>
+    <th>Egg</th>
+    <th>Player</th>
+  </tr>
+  {% for c in catches %}
+  <tr>
+    <td>{{c.date}}</td>
+    <td><a href="/egg/{{ c.egg.id }}">{{ c.egg.name }}</a></td>
+    <td><a href="/player/{{ c.player.id }}">{{ c.player.name }}</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h2>🏅 Leaderboard</h2>
+
+<table class="table table-responsive table-hover">
+  <tr>
+    <th></th>
+    <th>Player</th>
+    <th>Eggs</th>
+    <th>Score</th>
+  </tr>
+  {% for p in players_by_eggs_and_score %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td><a href="/player/{{ p.id }}">{{ p.name }}</a></td>
+    <td>{{ p.number_of_eggs }}</td>
+    <td>{{ p.score }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+  {% if player.egg_eurochicken %}
+  <H2>🐔 EuroChicken: Pickup <A HREF="/player/eurochicken/{{ player.code_eurochicken }}/">{{ player.egg_eurochicken.name }}</A></H2>
+  <P>{% if player.egg_eurochicken.image %}<A HREF="/player/eurochicken/{{ player.code_eurochicken }}/"><img src="{{ player.egg_eurochicken.image.url }}" width=120 />{% endif %}</A></P>
+  {% else %}
+  <H2>🐔 EuroChicken</H2>
+  <P>Next EuroChicken: {{ player.next_eurochicken_start }}</P>
+  <P>EuroChicken will let you pick a random egg among all the ones that were already caught.</P>
+  {% endif %}
+
+<HR>
+
+<P>Playing as <A HREF="/player/{{ player.id }}">{{ player.name }}</A>, {{ player.number_of_eggs }} egg{{ player.number_of_eggs|pluralize }}, {{ player.score }} points.</P>
+
+<P>[<A HREF="/players/">All Players</A>] [<A HREF="/eggs/">All Eggs</A>] [<A HREF="/api">REST API</A>]</P>
+
+<P>[<A HREF="https://expo.io/@onigoetz/egg-hunt">Expo Mobile App</A>] by Stéphane G.</P>
+
+<P>[<A HREF="/logout">Logout</A>]</P>
+
+{% else %}
+
+<P>
+To win:
+  <UL>
+    <LI>scan the QR-codes starting April 5th
+    <LI>catch them all!
+    <LI>attend closing ceremony on Wednesday, 19th April
+  </UL>
+</P>
+
+{% endif %}
+
+<!--
+Sample eggs
+
+EggCentrik http://sqpub.ch/egg/a3d028e9e3c543fc8817db3144b537e7
+EggScandal http://sqpub.ch/egg/2eea1dcf05914a6e9b7c8d4ef0638165
+-->
+
+{% endblock %}

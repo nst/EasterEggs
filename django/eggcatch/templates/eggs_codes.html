@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} SQPub Easter Eggs {% endblock %}
+
+{% block content %}
+
+<H1>All {{ eggs.count }} Eggs QR-Codes</H1>
+
+<TABLE class="table table-responsive table-hover">
+  <TR>
+    <TH>Name</TH>
+    <TH>Points</A></TH>
+    <TH>QR-Code</A></TH>
+  </TR>
+  {% for e in eggs %}
+  <TR>
+    <TD><A HREF="/egg/{{ e.id }}">{{ e.name }}</A></TD>
+    <TD>{{ e.points }}</TD>
+    <TD><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://sqpub.ch/egg/{{ e.code }}" /></TD>
+  </TR>
+  {% endfor %}
+</TABLE>
+</P>
+
+{% endblock %}

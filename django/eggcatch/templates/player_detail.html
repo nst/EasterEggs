@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %} {{ player.name }} {% endblock %}
+
+{% block content %}
+
+<h1>
+  &#128048; {{ player.name }}
+  <span class="small">
+    {{ player.number_of_eggs }} egg{{ player.number_of_eggs|pluralize }}, {{ player.score }} points
+  </small>
+</h1>
+<hr />
+
+<h2>Catches</h2>
+
+<table class="table table-responsive table-hover">
+  <tr>
+    <th>Egg</th>
+    <th>Points</th>
+    <th>Date</th>
+  </th>
+{% for c in catches %}
+  <tr>
+    <td>
+      <a href="/egg/{{ c.egg.id }}">{{ c.egg.name }}</a>
+    </td>
+    <td>
+      {{ c.egg.points }}
+    </td>
+    <td>
+      {{ c.date }}
+    </td>
+  </tr>
+{% endfor %}
+</table>
+
+<p>Back to <a href="/">Leaderboard</a></p>
+
+{% endblock %}

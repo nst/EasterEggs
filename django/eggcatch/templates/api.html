@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+
+{% block title %} SQPub Easter Eggs - REST API {% endblock %}
+
+{% block content %}
+
+<H1>SQPub Easter Eggs - REST API</H1>
+
+<P>
+<OL>
+	<LI><A HREF="#1">Catch an egg</A>
+	<LI><A HREF="#2">Query players by name</A>
+	<LI><A HREF="#3">Players list</A>
+  <LI><A HREF="#4">Player detail</A>
+	<LI><A HREF="#5">Eggs list</A>
+	<LI><A HREF="#6">Egg detail by id</A>
+  <LI><A HREF="#7">Egg detail by code</A>
+  <LI><A HREF="#8">Egg detail</A>
+  <LI><A HREF="#9">Catches list for player</A>
+  <LI><A HREF="#10">EuroChicken</A>
+  <LI><A HREF="#11">EuroChicken Catch</A>
+</OL>
+</P>
+
+<H4 id=1>
+	1. Catch an egg<BR>
+	<CODE>POST /api/catch_create/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl -X POST \
+-F "player_id=75" \
+-F "egg_code=453361b74ccf47fcb9e05ea60c56746b" \
+"http://sqpub.ch/api/catch_create/"
+
+{
+  "catch": {
+    "date": "2017-04-05T08:34:41.250Z", 
+    "player": {
+      "number_of_eggs": 22, 
+      "score": 1280, 
+      "id": 68, 
+      "name": "nst021"
+    }, 
+    "egg": {
+      "number_of_catches": 37, 
+      "points": 30, 
+      "image_url": "http://sqpub.ch/media/egg/None/SAM_2964.JPG", 
+      "name": "EggBob", 
+      "description": ""
+    }
+  }, 
+  "is_new_catch": false
+}</PRE>
+
+<P>Sample errors:</P>
+
+<PRE>HTTP 400 {"error_message":"player_id POST param is missing"}
+HTTP 400 {"error_message":"egg_code POST param is missing"}
+
+HTTP 404 {"error_message":"player with id 123 not found"}
+HTTP 404 {"error_message":"egg with code 123 not found"}</PRE>
+
+<H4 id=2>
+	2. Query players by name<BR>
+	<CODE>GET /api/players/name/:PLAYER_NAME/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/players/name/SQKaf/">http://sqpub.ch/api/players/name/SQKaf/</A>"
+
+[{"eggs": 3, "score": 130, "id": 75, "name": "SQKaf"}]
+</PRE>
+
+<H4 id=3>
+	3. Players List<BR>
+	<CODE>GET /api/players/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/players/">http://sqpub.ch/api/players/</A>"
+
+[
+  {
+    "score": 15, 
+    "number_of_eggs": 1, 
+    "id": 1, 
+    "name": "myself"
+  }, 
+  {
+    "score": 50, 
+    "number_of_eggs": 4, 
+    "id": 2, 
+    "name": "asd"
+  }
+]
+</PRE>
+
+<H4 id=4>
+  4. Player detail<BR>
+  <CODE>GET /api/player/:ID/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/player/75/">http://sqpub.ch/api/player/75/</A>"
+
+{
+  "score": 130, 
+  "number_of_eggs": 3, 
+  "id": 75, 
+  "name": "SQKaf"
+}
+</PRE>
+
+<P>Sample error:</P>
+
+<PRE>HTTP 404 {"error_message":"player with id 123 not found"}</PRE>
+
+<H4 id=5>
+	5. Eggs List<BR>
+	<CODE>GET /api/eggs/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/eggs/">http://sqpub.ch/api/eggs/</A>"
+
+[
+  {
+    "description": "", 
+    "number_of_catches": 1, 
+    "points": 10, 
+    "image_url": "http://sqpub.ch/media/egg/x/test.png", 
+    "id": 4, 
+    "name": "test"
+  }, 
+  {
+    "description": "bla bla bla", 
+    "number_of_catches": 1, 
+    "points": 10, 
+    "image_url": null, 
+    "id": 5, 
+    "name": "miaou"
+  }
+]
+</PRE>
+
+<H4 id=6>
+	6. Egg detail by id<BR>
+	<CODE>GET /api/egg/:ID/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/egg/57/">http://sqpub.ch/api/egg/57/</A>"
+
+{
+  "description": "", 
+  "number_of_catches": 35, 
+  "points": 50, 
+  "image_url": "http://sqpub.ch/media/egg/None/egg_mr__burns__eggcellent_by_cpsnewestproxy-d8ghdql.jpg", 
+  "id": 57, 
+  "name": "Eggcellent"
+}</PRE>
+
+<P>Sample error:</P>
+
+<PRE>HTTP 404 {"error_message":"egg with id 123 not found"}</PRE>
+
+<H4 id=7>
+  7. Egg detail by code<BR>
+  <CODE>GET /api/egg/:CODE/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/egg/39295ba0f55548258dfffcbbd54acafd/">http://sqpub.ch/api/egg/39295ba0f55548258dfffcbbd54acafd/</A>"
+
+{
+  "description": "", 
+  "number_of_catches": 35, 
+  "points": 50, 
+  "image_url": "http://sqpub.ch/media/egg/None/egg_mr__burns__eggcellent_by_cpsnewestproxy-d8ghdql.jpg", 
+  "id": 57, 
+  "name": "Eggcellent"
+}</PRE>
+
+<P>Sample error:</P>
+
+<PRE>HTTP 404 {"error_message":"egg with code 39295ba0f55548258dfffcbbd54acafd not found"}</PRE>
+
+<H4 id=8>
+  8. Catches List<BR>
+  <CODE>GET /api/catches/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/catches/">http://sqpub.ch/api/catches/</A>"
+
+[
+  {
+    "id": 1, 
+    "player_id": 7, 
+    "date": "2017-04-07T19:28:52.855Z", 
+    "egg_id": 3
+  }, 
+  {
+    "id": 2, 
+    "player_id": 4, 
+    "date": "2017-03-27T18:32:59.706Z", 
+    "egg_id": 5
+  }
+]
+</PRE>
+
+<H4 id=9>
+  9. Catches List for Player<BR>
+  <CODE>GET /api/catches/player/:ID/catches/</CODE>
+</H4>
+
+<P>Sample request and response:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/player/2/catches/">http://sqpub.ch/api/player/2/catches/</A>"
+
+[
+  {
+    "id": 1, 
+    "player_id": 2, 
+    "date": "2017-04-07T19:28:52.855Z", 
+    "egg_id": 3
+  }, 
+  {
+    "id": 2, 
+    "player_id": 2, 
+    "date": "2017-03-27T18:32:59.706Z", 
+    "egg_id": 5
+  }
+]
+</PRE>
+
+<H4 id=10>
+  10. EuroChicken<BR>
+  <CODE>GET /api/player/:ID/eurochicken/</CODE>
+</H4>
+
+<P>Sample request and response when EuroChicken has not started:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/player/12/eurochicken/">http://sqpub.ch/api/player/12/eurochicken/</A>"
+
+{
+  "proposed_egg": null, 
+  "proposed_egg_catch_url": null, 
+  "next_eurochicken_start": "2017-04-13T12:59:02Z"
+}
+</PRE>
+
+<P>Sample request and response when EuroChicken has started:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/player/12/eurochicken/">http://sqpub.ch/api/player/12/eurochicken/</A>"
+
+{
+  "proposed_egg": {
+    "description": "", 
+    "number_of_catches": 5, 
+    "points": 15, 
+    "image_url": null, 
+    "id": 2, 
+    "name": "Eggcellent"
+  }, 
+  "proposed_egg_catch_code": "b315e70fe0bc458597870c05c3fe71fa", 
+  "next_eurochicken_start": "2017-04-13T10:55:02Z"
+}
+</PRE>
+
+<P>Sample error:</P>
+
+<PRE>HTTP 404 {"error_message":"player with id 12 not found"}</PRE>
+
+<H4 id=11>
+  11. EuroChicken Catch<BR>
+  <CODE>GET /api/player/:ID/eurochicken/:CODE/</CODE>
+</H4>
+
+<P>Sample request and response when EuroChicken is available:</P>
+
+<PRE>curl "<A HREF="http://sqpub.ch/api/player/12/eurochicken/127e5c3962d04e05a62d65b47734a126/">http://sqpub.ch/api/player/12/eurochicken/127e5c3962d04e05a62d65b47734a126/</A>"
+
+{
+  "catch": {
+    "date": "2017-04-12T23:25:57.905Z", 
+    "player": {
+      "score": 50, 
+      "number_of_eggs": 4, 
+      "id": 12, 
+      "name": "yxc"
+    }, 
+    "egg": {
+      "description": "", 
+      "number_of_catches": 5, 
+      "points": 15, 
+      "image_url": null, 
+      "id": 2, 
+      "name": "Eggcellent"
+    }, 
+    "id": 21
+  }, 
+  "is_new_catch": false
+}
+</PRE>
+
+<P>Sample errors:</P>
+
+<PRE>
+HTTP 404 {"error_message": "player with id 12 not found"}
+HTTP 400 {"error_message": "player cannot use eurochicken code 127e5c3962d04e05a62d65b47734a126"}
+</PRE>
+
+{% endblock %}

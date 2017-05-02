@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %} SQPub Easter Eggs {% endblock %}
+
+{% block content %}
+
+<h1>Combos</h1>
+<hr />
+
+<P><A HREF="http://sqpub.ch/combos/47,55">Caro + Nicolas</A><P>
+<P><A HREF="http://sqpub.ch/combos/21,20,88,89,90">Simpsons</A><P>
+<P><A HREF="http://sqpub.ch/combos/30,31,32,27">Countries</A><P>
+<P><A HREF="http://sqpub.ch/combos/52,34">Money Money</A><P>
+
+<H4>{{ eggs.count }} Eggs</H4>
+
+<TABLE class="table table-responsive table-hover">
+  <TR>
+    <TH>Image</TH>
+    <TH>Name</TH>
+    <TH>Catches</A></TH>
+    <TH>Points</A></TH>
+    <TH>Description</A></TH>
+  </TR>
+  {% for e in eggs %}
+  <TR>
+    <TD>
+      {% if e.image %}
+        <A HREF="/egg/{{ e.id }}"><img src="{{ e.image.url }}" height=64 border=1 /></A>
+      {% endif %}
+    </TD>
+    <TD><A HREF="/egg/{{ e.id }}">{{ e.name }}</A></TD>
+    <TD>{{ e.number_of_catches }}
+    <TD>{{ e.points }}</TD>
+    <TD>{{ e.description }}
+  </TR>
+  {% endfor %}
+</TABLE>
+
+<H4>{{ players.count }} Winners</H4>
+
+<table class="table table-responsive table-hover">
+  <tr>
+    <th>Name</th>
+    <th>Eggs</th>
+    <th>Points</A></th>
+  </tr>
+  {% for p in winners %}
+  <tr>
+    <td><a href="/player/{{ p.id }}">{{ p.name }}</a></td>
+    <td>{{ p.number_of_eggs }}</td>
+    <td>{{ p.score }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

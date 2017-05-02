@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %} &#129370; {{ egg.name }} {% endblock %}
+
+{% block content %}
+
+<h1>
+	{{ egg.name }}
+	<span class="small">{{ egg.points }} points</span>
+</h1>
+
+<p>{{ egg.description }}</p>
+
+{% if egg.is_toxic %}
+{% load static %}
+<img src="/media/toxic.jpg" width=180 alt="Toxic Egg"/>
+{% endif %}
+
+{% if egg.image %}
+<img src="{{ egg.image.url }}" width=180 />
+{% endif %}
+
+<hr />
+
+{% if catch %}
+{% else %}
+
+	<P>
+	{% if allow_catch %}
+		{% if player %}
+			Catch for {{ player.name }}
+		{% else %}
+			Enter a name that identifies yourself.
+		{% endif %}
+	{% endif %}
+
+	{% if allow_catch %}
+		<form action="/egg/catch_action/" method="post">
+		{% if player %}
+		<input type="hidden" name="player_id" value={{ player.id}}>
+		{% else %}
+		Player: <input type="text" name="player_name" value="">
+		{% endif %}
+		{% csrf_token %}
+		<input type="hidden" name="code" value={{ egg.code }}>
+		<input type="submit" value="Catch" />
+		</form>
+		</P>
+	{% endif %}
+
+{% endif %}
+
+{% if player %}
+
+	{% if just_caught %}
+		<h1>NEW CATCH!!!</h1>
+	{% elif catch %}
+		<p>Caught {{ catch.date }}</p>
+	{% endif %}
+
+{% endif %}
+
+<P>{{ egg.name }} was caught by {{ catches.count }} players.</P>
+
+<table class="table table-responsive table-hover">
+  <tr>
+    <th>Date</th>
+    <th>Egg</th>
+    <th>Player</th>
+  </tr>
+  {% for c in catches %}
+  <tr>
+    <td>{{c.date}}</td>
+    <td><a href="/egg/{{ c.egg.id }}">{{ c.egg.name }}</a></td>
+    <td><a href="/player/{{ c.player.id }}">{{ c.player.name }}</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% if player %}
+<P>Back to <A HREF="/">Leaderboard</A></P>
+{% endif %}
+
+{% endblock %}
