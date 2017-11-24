@@ -86,7 +86,7 @@ QR codes are an external API to display QR codes:
 
 Altogether, server and domain name did cost 60 CHF for one year, which is very little money compared to all the fun we had.
 
-The whole source code is available on https://github.com/nst/sqpub
+The whole source code is available on https://github.com/nst/EasterEggs
 
 #### Conclusion
 
